@@ -22,4 +22,15 @@ public class AtomicIntegerEx {
         counter.incrementAndGet();//Similar to ++counter
         System.out.print(threadName + " done \n");
     }
+
+    /**
+     * Some methods
+     * coutner.set(10) -> write
+     * counter.getAndIncrement() -> counter++
+     * coutner.addAndGet(5) -> counter += 5
+     * counter.compareAndSet(10, 20) -> if value == 10 then set to 20 & return true
+     * 
+     * Note - compareAndSet(x, y) is an atomic operation
+     * CAS is a single CPU instruction (read + compare + write happens atomically)
+     */
 }
