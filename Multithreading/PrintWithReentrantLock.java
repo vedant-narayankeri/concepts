@@ -42,4 +42,23 @@ public class PrintWithReentrantLock {
             lock.unlock();
         }
     }
+
+
+    //Benefits of using Reentrant lock over synchronized
+    /* 
+        1. if(lock.tryLock(2, TimeUnit.SECONDS)) -> Don't block forever, give up if you don't acquire lock in 2 seconds
+        2. new ReentrantLock(true) -> FIFO - longest waiting thread gets lock first, we get Fairness
+        3. We can have separate condition per thread - 
+            Condition t1Turn = lock.newCondition();
+            This can enable us to conditionally signal particular threads.
+
+            //Maitain list of conditions
+            Condition[] conditions = {
+                lock.newCondition(), lock.newCondition(), lock.newCondition()
+            }
+            
+            Usage -
+            condition[threadId].await()
+            condition[nextThreadId].signal()
+    */
 }
