@@ -32,5 +32,7 @@ public class AtomicIntegerEx {
      * 
      * Note - compareAndSet(x, y) is an atomic operation
      * CAS is a single CPU instruction (read + compare + write happens atomically)
+     * 
+     * TODO - CAS (lock-free) vs Synchronized
      */
 }
