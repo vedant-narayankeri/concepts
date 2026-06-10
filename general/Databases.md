@@ -158,4 +158,8 @@ DB Sharding
         - N shards need N backups, N upgrades, N monitoring setups
         - Expensive & tedious
 
-- Benefits
+- Shard Key Selection, examples
+    - Good shard key (user_id ) -> even distribution, Query pattern per -user
+    - Bad shard key (country) -> US Shard has 10X more data than others
+    - Bad shard key (date) -> today's shards gets all writes
+    - `RULE - Shard key should have high cardinaltiy and even access distribution`
