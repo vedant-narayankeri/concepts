@@ -27,3 +27,9 @@ GIT Based Deployment Strategy
     - DATABASECHANGELOG table created per DB, Schema combination
     - liquibase --update
     - liquibase --tag
+
+- Adhoc
+    - Liquibase flows for creating standardized worfklows
+        - Multi-step process
+    - Hashicorp-Vault integration for Secrets
+    - More customizable policies
