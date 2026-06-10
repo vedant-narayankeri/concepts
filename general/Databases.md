@@ -76,5 +76,29 @@ No-SQL Databases
             - Context switching overhead (500 connections -> 500 processes)
 
 DB Sharding
+- Split data across multiple separate database servers
 
 DB Partitioning
+- Split table into pieces within same database server
+- Strategies
+    - Range based partitioning
+        - Split by some range
+            - `create table orders_2024_q1 PARTITION of orders for values from ('2024-01-01') to ('2024-04-01')`
+        - Best - Time-series, logs, archival data (drop old partitioin -> instant delete)
+        - New value automatically falls into a range
+        - Continous values, anything fits
+        - Query optimiation (`where date between x & y`)
+            - Prune to 1-2 partitioins
+    - Hash partitioning
+        - Spread data evenly on a key
+            - `PARTITION by HASH (user_id) PARTITIONS 8`
+        - Best - Even distritbution when no natural range
+    - List Partitioning
+        - `PARTITION by LIST (region)`
+          `('US', 'CA') -> partition_americas`
+          `('IN', 'JP') -> partition_apac `    
+        - Best - Categories, regions, status
+        - New value must be in list or is rejected
+        - Discrete values - explicit memebership is required
+        - Query optimiation (`where region = 'US'`)
+            - Prune to 1 partition
