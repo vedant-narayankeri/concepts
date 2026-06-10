@@ -163,3 +163,28 @@ DB Sharding
     - Bad shard key (country) -> US Shard has 10X more data than others
     - Bad shard key (date) -> today's shards gets all writes
     - `RULE - Shard key should have high cardinaltiy and even access distribution`
+
+
+Scalability Decisions
+- < 10M rows -> Indexing
+- 10M - 500M rows -> Partitioning (zero code changes, same server)
+- >500M rows -> Sharding (distributed and major architecture change)
+- Read-bound at any scale -> Read replicas
+
+Quick Reference -
+
+- Servers
+    - Partitioning: 1
+    - Sharding: multiple
+- Complexity
+    - Partitioning: low (db native)
+    - High: app + infra
+- Transactions
+    - Partitioning: Normal ACID
+    - Sharding: 2PC or eventual consistency
+- When
+    - Partitioning: Large tables, for faster queries
+    - Sharding - Single server limit reached
+- Code changes
+    - Partitioning - None/minimal
+    - Sharding: Significant - routing layer needed
