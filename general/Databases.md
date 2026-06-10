@@ -77,6 +77,7 @@ No-SQL Databases
 
 DB Partitioning
 - Split table into pieces within same database server
+
 - Strategies
     - Range based partitioning
         - Split by some range
@@ -99,6 +100,7 @@ DB Partitioning
         - Discrete values - explicit memebership is required
         - Query optimiation (`where region = 'US'`)
             - Prune to 1 partition
+
 - Benefits
     - Faster queries: Prunes relevant partitions only for Query
     - Faster deletex - `DROP PARTITION` instead of deleting millions of rows
@@ -112,6 +114,7 @@ DB Partitioning
 
 DB Sharding
 - Split data across multiple separate database servers
+
 - Strategies
     - Key-based (hash)
         - Usage - even distribution
@@ -135,3 +138,16 @@ DB Sharding
         - Adding/removing node 
             - reshuffles only ~1/N keys
         - Used by DynamoDB, Redis cluster, etc.
+
+- Limitations
+    - Cross-shard queries
+        - `SELECT .. JOIN` across shards is very slow
+        - We scattered data across different servers and have to gather it
+        - Added complexity as well
+    - Cross-shard transactions
+        - 2PC is very complex and slow
+    - Resharding
+        - Redistribution data everytime shard added/deleted
+    -= 
+
+- Benefits
