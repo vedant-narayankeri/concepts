@@ -102,3 +102,12 @@ DB Partitioning
         - Discrete values - explicit memebership is required
         - Query optimiation (`where region = 'US'`)
             - Prune to 1 partition
+- Benefits
+    - Faster queries: Prunes relevant partitions only for Query
+    - Faster deletex - `DROP PARTITION` instead of deleting millions of rows
+    - Parallel scans - DB can scan partitions concurrently
+    - Maintenence: We can reindex/vacuum one partition wihtout locking entire table
+- Limitations
+    - Still one DB server - Bounded by single machine's CPU, RAM, disk
+    - Cross-partition queries can be slower (I think with JOINS)
+    - Useful generally when we `exceed ~100Million+ rows`
