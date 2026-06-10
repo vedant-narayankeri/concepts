@@ -1,4 +1,4 @@
-package multithreadingg;
+package multithreading;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
