@@ -148,6 +148,14 @@ DB Sharding
         - 2PC is very complex and slow
     - Resharding
         - Redistribution data everytime shard added/deleted
-    -= 
+    - Hot Shards
+        - Particular shards could be overlaoded
+        - Ex: Particular celebrity user gets 10X traffic
+    - Global ordering
+        - Cannot use auto-increment ids
+        - Exception - Snowflake uses distributed ID generation
+    - Operational Complexity
+        - N shards need N backups, N upgrades, N monitoring setups
+        - Expensive & tedious
 
 - Benefits
