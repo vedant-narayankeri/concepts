@@ -54,12 +54,26 @@ No-SQL Databases
     - No query parsing overhead
         - Redis is single hash-map lookup `(O(1))`
         - Postgres
-            - Parse SQL
-            - Plan Query
-            - Check perms
-            - Access index
-            - Fetch row
-            - Serialize
+            - Storage: B-tree index -> leaf page -> head tuple. Lookup -  `(Olog(n))` with multiple pointer chases
+            - Steps:
+                - Parse SQL
+                - Plan Query
+                - Check perms
+                - Access index
+                - Fetch row
+                - Serialize
+    - No ACID overhead
+        - Redis is single-threaded event loop, no transactions. no versioning
+        - Postgres: ACID overhead
+            - MVCC (multi-version concurrency control)
+            - It keeps multiple version of the same row, so readers/writes don't block each other
+            - Exentially snapshot management
+            - MVCC + WAL combinations slows queries - Tradefoff for correctness
+    - Connections
+        - Redis - Single threaded event loop, handles 100K+ connections cheaply
+        - Postgress:
+            - One OS process per connection (5-10MB)
+            - Context switching overhead (500 connections -> 500 processes)
 
 DB Sharding
 
