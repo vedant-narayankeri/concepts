@@ -75,9 +75,6 @@ No-SQL Databases
             - One OS process per connection (5-10MB)
             - Context switching overhead (500 connections -> 500 processes)
 
-DB Sharding
-- Split data across multiple separate database servers
-
 DB Partitioning
 - Split table into pieces within same database server
 - Strategies
@@ -111,3 +108,30 @@ DB Partitioning
     - Still one DB server - Bounded by single machine's CPU, RAM, disk
     - Cross-partition queries can be slower (I think with JOINS)
     - Useful generally when we `exceed ~100Million+ rows`
+
+
+DB Sharding
+- Split data across multiple separate database servers
+- Strategies
+    - Key-based (hash)
+        - Usage - even distribution
+        - shard = has(user_id)%3 
+        - `user_id=123 in shard 3`
+        - `user_id=124 in shard 2`
+    - Range-based
+        - Simple, but hotspots 
+            - All new user queries hit latest shard
+        - `user_id (1-1Million) -> shard 1`
+        - `user_id (1M - 2 Million) -> shard 2`
+    - Directory-based
+        - Need Lookup Service
+        - Persist mapping of user_id and shard - dependent on user we can specify routing logic
+            - Ex: capacity based (shard with most free space), business rule (premimum users SHARD 1) etc
+            - Hence, very flexible
+        - But it is `Single point of failure`, common problem in complex system
+    - Consistent hashing (BEST practice)
+        - Hash ring: Nodes placed on a c=ircle
+        - Key hashes to a point -> walk clockwise -> first node = owner
+        - Adding/removing node 
+            - reshuffles only ~1/N keys
+        - Used by DynamoDB, Redis cluster, etc.
