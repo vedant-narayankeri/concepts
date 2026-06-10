@@ -1,4 +1,4 @@
-package multithreading;
+package multithreadingg;
 public class SequentialThreads
 {
     //In Java every object has a built-in monitor lock (also called intrinsic lock)
