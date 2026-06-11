@@ -51,4 +51,3 @@ Q. Can 2 consumers in same group get the same message?
         - Cooperative rebalancing - Only revokes affected partitions for a consumer, rest keep running 
             - Eager: default re-assigns all paritions, all partitions are revoked
                 - Entire group stops for seconds
-    
