@@ -188,3 +188,27 @@ Quick Reference -
 - Code changes
     - Partitioning - None/minimal
     - Sharding: Significant - routing layer needed
+
+ACID properties:
+
+- Atomicity
+    - All or nothing
+        - WAL log enables to replay/undo from log
+        - We do not have partial transactions/random states
+        - Succeeds or changes are rolled-back
+- Isolation
+    - Concurrent transactions do not interfere
+    - Different isolation levels (weakest to strongest)
+        - Dirty read
+        - Non repeatable read
+        - Phantom read
+- Durability
+    - WAL mechanims
+        - Write to WAL disk before ACK commit
+        - On recoverL replay WAL to reconstruct committed state
+    - Once committed then Permanent
+- Consistency
+    - Database always in a valid state
+    - Constraints (FK, unique, checks)
+    - Triggers
+    - Application rules enforced at Commit
