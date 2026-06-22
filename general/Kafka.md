@@ -51,3 +51,8 @@ Q. Can 2 consumers in same group get the same message?
         - Cooperative rebalancing - Only revokes affected partitions for a consumer, rest keep running 
             - Eager: default re-assigns all paritions, all partitions are revoked
                 - Entire group stops for seconds
+
+
+TODO -  How would you guarantee message ordering within a partition?
+TODO -  How would you handle consumer failures without losing or duplicating messages?
+TODO -  How would you scale throughput without sacrificing durability?
